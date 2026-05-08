@@ -35,5 +35,5 @@ RUN mkdir -p /workspace && \
 
 USER aiuser
 
-ENTRYPOINT ["claude", "--dangerously-skip-permissions"]
-
+ENTRYPOINT ["claude"]
+CMD ["--dangerously-skip-permissions"]
