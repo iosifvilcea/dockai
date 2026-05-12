@@ -7,4 +7,5 @@ docker run -it --rm \
   -v gradle_cache:/home/aiuser/.gradle \
   -v pip_cache:/home/aiuser/.cache/pip \
   -v "$(realpath "$TARGET_DIR")":/workspace \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   dockai
