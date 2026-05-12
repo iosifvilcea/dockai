@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     make \
-    docker.io \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://claude.ai/install.sh | bash && \
@@ -26,8 +25,6 @@ ARG UID=10001
 
 RUN useradd -m -u ${UID} -s /bin/bash aiuser && \
     echo "aiuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-RUN usermod -aG docker aiuser
 
 ENV HOME=/home/aiuser
 
