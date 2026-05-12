@@ -1,7 +1,13 @@
 #!/bin/bash
-
 TARGET_DIR="${1:-$(pwd)}"
-DOCKER_GID=$(getent group docker | cut -d: -f3)
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS local - no root, docker socket handled by Docker Desktop
+  USER_FLAG=""
+else
+  # VPS Linux - root for docker socket access
+  USER_FLAG="--user root"
+fi
 
 docker run -it --rm \
   -v claude_config:/home/aiuser \
@@ -9,5 +15,5 @@ docker run -it --rm \
   -v pip_cache:/home/aiuser/.cache/pip \
   -v "$(realpath "$TARGET_DIR")":/workspace \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  --group-add "$DOCKER_GID" \
+  $USER_FLAG \
   dockai
